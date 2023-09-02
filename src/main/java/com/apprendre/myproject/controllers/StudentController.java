@@ -9,10 +9,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "student")
+@RequestMapping(path = "/student")
 public class StudentController {
 
     private final StudentService studentService;
+
+
+    /**
+     *
+     * Stucture:
+     *  - Controller use service.
+     *  Si on veut utiliser le service, on doit l'injecter dans le controller :
+     *  ex : public StudentController(StudentService studentService) {
+     *         this.studentService = studentService;
+     *     }
+     * <p>
+     *     //@GetMapping: pour recuperer les donnees
+     *     //@PostMapping: pour ajouter les donnees
+     *     //@PutMapping: pour modifier les donnees
+     *     //@DeleteMapping: pour supprimer les donnees
+     * <p>
+     *    Si on a une methode qui retourne une liste, on doit utiliser le @ResponseBody
+     *    ex: @GetMapping
+     *    public @ResponseBody List<StudentEntity> getStudent() {
+     *     return this.studentService.getStudent();
+     *     }
+     *
+     */
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
