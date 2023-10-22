@@ -1,0 +1,15 @@
+
+### Post a new Course
+POST http://localhost:8080/course
+Content-Type: application/json
+
+{
+  "courseCode": "CS101",
+  "courseName": "Introduction to Computer Science",
+  "description": "Basic computer science course",
+  "startDate": "2023-11-01T08:00:00",
+  "endDate": "2023-12-20T08:00:00"
+}
+
+### Get all Courses
+GET http://localhost:8080/course

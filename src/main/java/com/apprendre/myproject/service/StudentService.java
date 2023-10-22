@@ -2,56 +2,56 @@ package com.apprendre.myproject.service;
 
 import com.apprendre.myproject.entity.StudentEntity;
 import com.apprendre.myproject.repository.StudentRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 public class StudentService {
+
     private final StudentRepository studentRepository;
 
+    @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
-    public List<StudentEntity> getStudent() {
-        return this.studentRepository.findAll();
+    public List<StudentEntity> getAllStudents() {
+        return studentRepository.findAll();
     }
 
-    public void addNewStudent(StudentEntity studentEntity) {
-        boolean studentExists = this.studentRepository.findStudentByEmail(studentEntity.getEmail()).stream().anyMatch(student -> student.getName().equals(studentEntity.getName()));
+    public StudentEntity getStudentById(Long id) {
+        Optional<StudentEntity> student = studentRepository.findById(id);
+        return student.orElse(null);
+    }
 
-        if (studentExists) {
-            throw new IllegalStateException("Student already exists");
+    public StudentEntity createStudent(StudentEntity student) {
+        return studentRepository.save(student);
+    }
+
+    public StudentEntity updateStudent(Long id, StudentEntity updatedStudent) {
+        Optional<StudentEntity> existingStudent = studentRepository.findById(id);
+        if (existingStudent.isPresent()) {
+            StudentEntity student = existingStudent.get();
+            student.setFirstName(updatedStudent.getFirstName());
+            student.setLastName(updatedStudent.getLastName());
+            student.setDateOfBirth(updatedStudent.getDateOfBirth());
+            student.setGender(updatedStudent.getGender());
+            student.setEmail(updatedStudent.getEmail());
+            student.setPhoneNumber(updatedStudent.getPhoneNumber());
+            student.setAddress(updatedStudent.getAddress());
+            student.setNationality(updatedStudent.getNationality());
+            student.setRegistrationDate(updatedStudent.getRegistrationDate());
+
+            return studentRepository.save(student);
         } else {
-            this.studentRepository.save(studentEntity);
+            return null;
         }
     }
 
-    @Transactional
-    public void updateStudent(
-            StudentEntity studentEntity
-    ) {
-        StudentEntity student = this.studentRepository.findById(studentEntity.getId()).orElseThrow(() -> new IllegalStateException("Student with id " + studentEntity.getId() + " does not exist"));
-
-        // update student
-        student.setName(studentEntity.getName());
-        student.setEmail(studentEntity.getEmail());
-        student.setNiveau(studentEntity.getNiveau());
-
-        // save student
-        this.studentRepository.save(student);
-    }
-
-    public void deleteStudent(Long studentId) {
-        boolean studentExists = this.studentRepository.existsById(studentId);
-
-        if (studentExists) {
-            this.studentRepository.deleteById(studentId);
-        } else {
-            throw new IllegalStateException("Student with id " + studentId + " does not exist");
-        }
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
     }
 }

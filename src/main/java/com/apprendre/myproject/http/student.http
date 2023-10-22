@@ -1,0 +1,22 @@
+### POST Student
+POST http://localhost:8080/students
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "1990-01-01",
+  "gender": "MALE",
+  "email": "john.doe@example.com",
+  "phoneNumber": "1234567890",
+  "address": "123 Main St",
+  "nationality": "US"
+}
+
+### GET Student
+GET http://localhost:8080/students
+Accept: application/json
+
+### GET Student by ID
+GET http://localhost:8080/students/1
+Accept: application/json

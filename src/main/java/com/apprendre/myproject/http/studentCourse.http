@@ -1,0 +1,13 @@
+### Create a new studentCourse
+
+POST http://localhost:8080/student-course
+Content-Type: application/json
+
+{
+  "studentId": 1,
+  "courseId": 1,
+  "grade": "A"
+}
+
+### Get all studentCourses
+GET http://localhost:8080/student-course

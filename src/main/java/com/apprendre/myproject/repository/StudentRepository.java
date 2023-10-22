@@ -10,7 +10,4 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
-
-    Collection<StudentEntity> findStudentByEmail(String email);
-
 }
