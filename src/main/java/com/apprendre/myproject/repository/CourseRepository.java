@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
+
     @Query("SELECT c FROM CourseEntity c WHERE c.courseCode = ?1")
     Optional<CourseEntity> findCourseByCourseCode(String courseCode);
 }

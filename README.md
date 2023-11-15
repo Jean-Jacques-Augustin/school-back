@@ -7,7 +7,7 @@ La conception de la base de donnée se trouve dans le fichier [database.sql](dat
 Pour installer le projet, il faut d'abord créer un db mariadb avec le nom `gestion_etudiants` comme suit:
 ```bash
 $ mysql -u root 
-$ CREATE DATABASE gestion_etudiants;
+$ CREATE DATABASE myProject;
 ```
 Ensuite, lancer itellij et importer le projet.
 Il faut lancer le fichier [Main.java](src/main/java/Main.java) qui se trouve dans le dossier `src/main/java/`
